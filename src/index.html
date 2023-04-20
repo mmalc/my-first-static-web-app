@@ -1,17 +1,94 @@
-<!DOCTYPE html>
-<html lang="en">
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>SMART App Launch Demo</title>
+        <!--<script src = "https://cdn.jsdelivr.net/npm/fhirclient/build/fhir-client.js"/>-->
+        <script src = "./lib/fhir-client.js"></script>
+		<style>
+			#patient, #meds {
+                font-family: Monaco, monospace;
+                white-space: pre;
+                font-size: 13px;
+                height: 30vh;
+                overflow: scroll;
+                border: 1px solid #CCC;
+			}
+		</style>
+    </head>
+    <body>
+        <!--<script>
+            FHIR.oauth2.authorize({
+                clientId: "<client ID>",
+                scope: "launch openid fhiruser patient/*.read",
+                redirectUri: "index.html"
+            });
+        </script> -->
+		<H2>Current Patient</H2>
+		<div id="patient">Loading...</div>
+		<br/>
+		<H3>Medications</H3>
+		<div id="meds">Loading...</div>
+		<script type="text/javascript">
+			// function display(data) {
+			// 	const output = document.getElementById("patient");
+			// 	output.innerText = data instanceof Error ? 
+			// 		String(data) :
+			// 		JSON.stringify(data, null, 4);
+			// }
+			// function displayMeds(data) {
+			// 	const output = document.getElementById("meds");
+			// 	output.innerText = data instanceof Error ? 
+			// 		String(data) :
+			// 		JSON.stringify(data, null, 4);
+			// }			console.log("********************************");
+			// let client = FHIR.client("http://hapi.fhir.org/baseR4/");
+			// console.log("Got FHIR Client");
+			// client.request("Patient/591975")
+			// .then(display)
+			// .catch(display);
+			// client = FHIR.client("http://hapi.fhir.org/baseR4/");
+			// console.log("Getting meds");
+			// client.request("MedicationStatement?_patient=591975")
+			// .then(displayMeds)
+			// .catch(displayMeds);
+			FHIR.oauth2.ready().then(function(client) {
+                
+                // Render the current patient (or any error)
+                client.patient.read().then(
+                    function(pt) {
+                        document.getElementById("patient").innerText = JSON.stringify(pt, null, 4);
+                    },
+                    function(error) {
+                        document.getElementById("patient").innerText = error.stack;
+                    }
+                );
+                
+                // // Get MedicationRequests for the selected patient
+                // client.request("/MedicationRequest?patient=" + client.patient.id, {
+                //     resolveReferences: [ "medicationReference" ],
+                //     graph: true
+                // })
+                
+                // // Reject if no MedicationRequests are found
+                // .then(function(data) {
+                //     if (!data.entry || !data.entry.length) {
+                //         throw new Error("No medications found for the selected patient");
+                //     }
+                //     return data.entry;
+                // })
+                
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="styles.css">
-  <title>Vanilla JavaScript App</title>
-</head>
+                // // Render the current patient's medications (or any error)
+                // .then(
+                //     function(meds) {
+                //         document.getElementById("meds").innerText = JSON.stringify(meds, null, 4);
+                //     },
+                //     function(error) {
+                //         document.getElementById("meds").innerText = error.stack;
+                //     }
+                // );
 
-<body>
-  <main>
-    <h1>Vanilla JavaScript App</h1>
-  </main>
-</body>
-
+            }).catch(console.error);
+		</script>
+    </body>
 </html>
