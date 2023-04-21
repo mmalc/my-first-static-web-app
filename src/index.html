@@ -53,18 +53,18 @@
 			// .then(displayMeds)
 			// .catch(displayMeds);
       
-      FHIR.oauth2.authorize({
-          clientId: "27a7c62c-168e-4b71-bd77-7fa578c44c07", 
-          scope: "user/*.read openid profile fhirUser",
-          redirectUrl: "index.html",
-          response_type: "code",
-          redirect_uri: "https://localhost:8080/callback",
-	        aud: "https://api.dev.telstrahealth.com/fhir/",
-	        state: "nPL1GVI4s9AFXzcQ",
-	        code_challenge: "j_g522-lIX2u9adH7-t63oNYyd83OBazfdqz5aeTRsA",
-	        code_challenge_method: "S256"
-      }).then(console.log);
-      console.log("*******************************");
+      // FHIR.oauth2.authorize({
+      //     clientId: "27a7c62c-168e-4b71-bd77-7fa578c44c07", 
+      //     scope: "user/*.read openid profile fhirUser",
+      //     redirectUrl: "index.html",
+      //     response_type: "code",
+      //     redirect_uri: "https://localhost:8080/callback",
+	    //     aud: "https://api.dev.telstrahealth.com/fhir/",
+	    //     state: "nPL1GVI4s9AFXzcQ",
+	    //     code_challenge: "j_g522-lIX2u9adH7-t63oNYyd83OBazfdqz5aeTRsA",
+	    //     code_challenge_method: "S256"
+      // }).then(console.log);
+      console.log("******  Index.html  *************************");
 			FHIR.oauth2.ready().then(function(client) {
                 
                 // Render the current patient (or any error)

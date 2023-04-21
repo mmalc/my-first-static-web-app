@@ -13,11 +13,23 @@
   <main>
     <H2>SMART on FHIR</H2>
     <script>
-      FHIR.oauth2.authorize({
+    //   FHIR.oauth2.authorize({
+    //       clientId: "27a7c62c-168e-4b71-bd77-7fa578c44c07", 
+    //       scope: "launch openid fhiruser patient/*.read",
+    //       redirectUrl: "index.html"
+    //   });
+    FHIR.oauth2.authorize({
           clientId: "27a7c62c-168e-4b71-bd77-7fa578c44c07", 
-          scope: "launch openid fhiruser patient/*.read",
-          redirectUrl: "index.html"
-      });
+          scope: "user/*.read openid profile fhirUser",
+          redirectUrl: "index.html",
+          response_type: "code",
+          redirect_uri: "https://localhost:8080/callback",
+	        aud: "https://api.dev.telstrahealth.com/fhir/",
+	        state: "nPL1GVI4s9AFXzcQ",
+	        code_challenge: "j_g522-lIX2u9adH7-t63oNYyd83OBazfdqz5aeTRsA",
+	        code_challenge_method: "S256"
+      }).then(console.log("Auth complete"));
+    
     </script>
   </main>
 </body>
